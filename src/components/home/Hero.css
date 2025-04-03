@@ -1,0 +1,185 @@
+.hero-block {
+    padding: 24px 0;
+  }
+  
+  /* Carousel styling */
+  .carousel-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .carousel-item {
+    position: relative;
+    height: 450px;
+  }
+  
+  .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .carousel-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 40px;
+    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 100%);
+    color: white;
+  }
+  
+  .carousel-content h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: white;
+  }
+  
+  .carousel-content p {
+    font-size: 18px;
+    margin-bottom: 24px;
+  }
+  
+  .shop-now-btn {
+    background-color: #1890ff;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: fit-content;
+  }
+  
+  .shop-now-btn:hover {
+    background-color: #40a9ff;
+  }
+  
+  /* Service blocks styling */
+  .service-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+  }
+  
+  .service-block {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    flex-grow: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .service-block:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .service-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .service-icon {
+    font-size: 24px;
+    color: #1890ff;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e6f7ff;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  
+  .service-text h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #333;
+  }
+  
+  .service-text p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+  
+  /* Ant Design Carousel customization */
+  .hero-block .ant-carousel .slick-dots {
+    bottom: 16px;
+  }
+  
+  .hero-block .ant-carousel .slick-dots li button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+  }
+  
+  .hero-block .ant-carousel .slick-dots li.slick-active button {
+    background: white;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 992px) {
+    .carousel-item {
+      height: 350px;
+    }
+    
+    .carousel-content {
+      width: 70%;
+    }
+    
+    .carousel-content h2 {
+      font-size: 28px;
+    }
+    
+    .carousel-content p {
+      font-size: 16px;
+    }
+    
+    .service-blocks {
+      flex-direction: row;
+      margin-top: 24px;
+    }
+    
+    .service-block {
+      width: 33.333%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .carousel-item {
+      height: 300px;
+    }
+    
+    .carousel-content {
+      width: 80%;
+      padding: 0 20px;
+    }
+    
+    .carousel-content h2 {
+      font-size: 24px;
+    }
+    
+    .service-blocks {
+      flex-direction: column;
+    }
+    
+    .service-block {
+      width: 100%;
+    }
+  }

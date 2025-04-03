@@ -1,0 +1,116 @@
+/* FooterWidget.css */
+.footer-widget {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+  
+  .widget-title {
+    color: #333 !important;
+    margin-bottom: 20px !important;
+    font-weight: 600 !important;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .widget-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: #1890ff;
+  }
+  
+  .product-item {
+    padding: 12px 0 !important;
+    border-bottom: 1px dashed #f0f0f0 !important;
+  }
+  
+  .product-item:last-child {
+    border-bottom: none !important;
+  }
+  
+  .product-item .ant-list-item-meta {
+    align-items: center !important;
+  }
+  
+  .product-title {
+    color: #333;
+    font-size: 14px;
+    transition: color 0.3s;
+  }
+  
+  .product-title:hover {
+    color: #1890ff;
+  }
+  
+  .product-price {
+    color: #ff4d4f;
+    font-weight: 500;
+  }
+  
+  .product-rating {
+    color: #faad14;
+    font-size: 12px;
+  }
+  
+  .recent-posts .post-item {
+    padding: 8px 0 !important;
+    border-bottom: 1px dashed #f0f0f0 !important;
+  }
+  
+  .recent-posts .post-item:last-child {
+    border-bottom: none !important;
+  }
+  
+  .recent-posts a {
+    color: #666;
+    transition: color 0.3s;
+  }
+  
+  .recent-posts a:hover {
+    color: #1890ff;
+  }
+  
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .tag {
+    margin: 0 !important;
+    padding: 4px 12px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    color: #666;
+    transition: all 0.3s;
+  }
+  
+  .tag:hover {
+    background-color: #1890ff;
+    color: white;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .footer-widget {
+      padding: 30px 0;
+    }
+    
+    .widget-title {
+      font-size: 16px !important;
+    }
+    
+    .product-item .ant-avatar-square {
+      width: 48px !important;
+      height: 48px !important;
+    }
+  }
+
+
+  /* {footer copyright} */
+
+  

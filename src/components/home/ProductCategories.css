@@ -1,0 +1,35 @@
+.productCategories {
+    padding: 24px 0;
+  }
+  
+  .productCategories h2 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 24px;
+    font-weight: bold;
+  }
+  
+  .category-content {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .category-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .category-image {
+    height: 180px;
+    width: 100%;
+  }
+  
+  .category-content h3 {
+    padding: 12px;
+    text-align: center;
+    margin: 0;
+    font-size: 16px;
+    background-color: #fff;
+  }
