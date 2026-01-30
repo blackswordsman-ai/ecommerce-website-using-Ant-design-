@@ -1,64 +1,72 @@
-import { Col, Row, Typography } from 'antd';
-import './TopBrand.css'; // We'll create this CSS file
+import { Col, Row, Typography, Card } from 'antd';
+import './TopBrand.css';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const brands = [
   {
     key: '1',
-    image: require('../../assets/images/img9.jpg'),
-    name: 'Nike',
-    category: 'Sportswear'
+    logo: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg",
+    name: 'Nike'
   },
   {
     key: '2',
-    image: require('../../assets/images/img10.jpg'),
-    name: 'Apple',
-    category: 'Electronics'
+    logo: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
+    name: 'Apple'
   },
   {
     key: '3',
-    image: require('../../assets/images/img11.jpg'),
-    name: 'Starbucks',
-    category: 'Beverages'
+    logo: "https://upload.wikimedia.org/wikipedia/en/d/d3/Starbucks_Corporation_Logo_2011.svg",
+    name: 'Starbucks'
   },
   {
     key: '4',
-    image: require('../../assets/images/img9.jpg'),
-    name: 'Adidas',
-    category: 'Sportswear'
+    logo: "https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg",
+    name: 'Adidas'
+  },
+  {
+    key: '5',
+    logo: "https://upload.wikimedia.org/wikipedia/commons/5/53/H%26M-Logo.svg",
+    name: 'H&M'
+  },
+  {
+    key: '6',
+    logo: "https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg",
+    name: 'Samsung'
   }
 ];
 
 function TopBrand() {
   return (
-    <div className="block top-brands">
-      <Title level={2} className="section-title">Top Brands</Title>
-      <Row gutter={[24, 24]} justify="center">
-        {brands.map(brand => (
-          <Col 
-            key={brand.key} 
-            xs={12} 
-            sm={8} 
-            md={6} 
-            lg={6}
-          >
-            <div className="brand-card">
-              <div className="brand-image-container">
-                <img 
-                  src={brand.image} 
-                  alt={brand.name} 
-                  className="brand-image"
-                />
-              </div>
-              <div className="brand-info">
-                <h3 className="brand-name">{brand.name}</h3>
-                <p className="brand-category">{brand.category}</p>
-              </div>
-            </div>
-          </Col>
-        ))}
-      </Row>
+    <div className="section-padding top-brands-section">
+      <div className="container">
+        <div className="section-header">
+          <Title level={2}>Top Brands</Title>
+          <Text type="secondary">We only host the best brands in the world</Text>
+        </div>
+        
+        <Row gutter={[24, 24]} justify="center" align="middle">
+          {brands.map(brand => (
+            <Col 
+              key={brand.key} 
+              xs={12} 
+              sm={8} 
+              md={6} 
+              lg={4}
+            >
+              <Card hoverable className="brand-logo-card">
+                <div className="brand-logo-wrapper">
+                  <img 
+                    src={brand.logo} 
+                    alt={brand.name} 
+                    className="brand-logo-img"
+                  />
+                </div>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </div>
     </div>
   );
 }

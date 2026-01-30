@@ -1,0 +1,117 @@
+.newsletter-section {
+  padding: 80px 0;
+  background: white;
+}
+
+.newsletter-card {
+  background: #1e293b;
+  border-radius: 40px;
+  padding: 60px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Background Decoration */
+.newsletter-card::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 300px;
+  height: 300px;
+  background: var(--primary-color);
+  opacity: 0.1;
+  border-radius: 50%;
+}
+
+.newsletter-icon-box {
+  width: 60px;
+  height: 60px;
+  background: rgba(34, 197, 94, 0.15);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: var(--primary-color);
+  margin-bottom: 25px;
+}
+
+.newsletter-title {
+  color: white !important;
+  font-size: 38px !important;
+  font-weight: 800 !important;
+  margin-bottom: 15px !important;
+  letter-spacing: -1px;
+}
+
+.newsletter-title .accent {
+  color: var(--primary-color);
+}
+
+.newsletter-desc {
+  color: #94a3b8 !important;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.premium-input-group {
+  display: flex;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.newsletter-input {
+  background: transparent !important;
+  border: none !important;
+  color: white !important;
+  height: 50px !important;
+}
+
+.newsletter-input::placeholder {
+  color: #64748b !important;
+}
+
+.newsletter-btn {
+  height: 50px !important;
+  border-radius: 12px !important;
+  padding: 0 35px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.3) !important;
+}
+
+.privacy-note {
+  display: block;
+  margin-top: 20px;
+  color: #64748b !important;
+  font-size: 13px;
+  text-align: center;
+}
+
+@media (max-width: 992px) {
+  .newsletter-card {
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .newsletter-icon-box {
+    margin: 0 auto 25px auto;
+  }
+  
+  .premium-input-group {
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  
+  .newsletter-input {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+  }
+}

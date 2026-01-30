@@ -1,0 +1,129 @@
+.checkout-page {
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.checkout-main-title {
+  font-weight: 800 !important;
+  margin-bottom: 40px !important;
+  color: #1e293b !important;
+}
+
+.checkout-form-card {
+  border-radius: 20px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  border: none !important;
+}
+
+.checkout-form-card .ant-card-head {
+  border-bottom: 1px solid #f1f5f9;
+  padding: 0 24px;
+}
+
+.checkout-form-card .ant-card-head-title {
+  font-weight: 700;
+  color: #475569;
+}
+
+.checkout-input {
+  border-radius: 8px !important;
+  padding: 10px 15px !important;
+  border-color: #e2e8f0 !important;
+}
+
+.checkout-input:hover, .checkout-input:focus {
+  border-color: var(--primary-color) !important;
+}
+
+.payment-radio-group {
+  width: 100%;
+}
+
+.payment-option {
+  width: 100%;
+  padding: 15px 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  transition: all 0.3s;
+}
+
+.payment-option.ant-radio-wrapper-checked {
+  border-color: var(--primary-color);
+  background: rgba(34, 197, 94, 0.05);
+}
+
+.checkout-summary {
+  position: sticky;
+  top: 100px;
+}
+
+.summary-items-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.summary-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-title {
+  display: block;
+  font-size: 14px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.total-row {
+  margin-top: 10px;
+}
+
+.accent-text {
+  color: var(--primary-color) !important;
+  font-weight: 800 !important;
+}
+
+.place-order-btn {
+  height: 60px !important;
+  border-radius: 15px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  margin-top: 20px !important;
+}
+
+.trust-badges {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #64748b;
+}
+
+@media (max-width: 992px) {
+  .checkout-summary {
+    position: static;
+  }
+}

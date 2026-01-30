@@ -1,47 +1,53 @@
-import 'antd/dist/reset.css'; // Import Ant Design CSS
-import {  Layout } from 'antd';
-import './App.css';
-import AppHeader from './components/common/header';
+import React from 'react';
+import { ConfigProvider } from 'antd';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AppHome from './pages/home';
-import AppAbout from './pages/about';
-import AppContact from './pages/contact';
-import AppShop from './pages/shop';
-import AppFaq from './pages/faq';
-import FooterCopyRight from './components/common/footerCopyRight';
-import FooterWidget from './components/common/footerWidget';
+import 'antd/dist/reset.css';
+import './App.css';
+import themeConfig from './theme/themeConfig';
+import MainLayout from './layouts/MainLayout';
 
-const { Header, Footer,  Content } = Layout;
+// Pages
+import Home from './pages/Home';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Shop from './pages/Shop';
+import FAQ from './pages/FAQ';
+import Cart from './pages/Cart';
+import Categories from './pages/Categories';
+import Deals from './pages/Deals';
+import ProductDetail from './pages/ProductDetail';
+import Checkout from './pages/Checkout';
 
-
+import { CartProvider } from './context/CartContext';
 
 function App() {
   return (
-    <div className="App">
-
-  <Layout>
-    <Router>
-    <Header>
-        <AppHeader />
-      </Header>
-      <Content>
-        <Routes>
-          <Route path='/' element={<AppHome/>} ></Route>
-          <Route path='/about' element={<AppAbout/>} ></Route>
-          <Route path='/contact' element={<AppContact/>} ></Route>
-          <Route path='/shop' element={<AppShop/>} ></Route>
-          <Route path='/faq' element={<AppFaq/>} ></Route>
-        </Routes>
-      </Content>
-    </Router>
-      <Footer>
-        <FooterWidget/>
-        <FooterCopyRight/>
-      </Footer>
-
-    </Layout>
-    </div>
+    <ConfigProvider theme={themeConfig}>
+      <CartProvider>
+        <Router>
+          <MainLayout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/deals" element={<Deals />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/checkout" element={<Checkout />} />
+            </Routes>
+          </MainLayout>
+        </Router>
+      </CartProvider>
+    </ConfigProvider>
   );
 }
 
+
+
+
+
 export default App;
+
