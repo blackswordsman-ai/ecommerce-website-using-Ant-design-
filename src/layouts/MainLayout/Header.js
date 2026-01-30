@@ -37,6 +37,7 @@ function Header() {
     { to: "/about", label: "About Us" },
     { to: "/contact", label: "Contact" },
     { to: "/faq", label: "FAQ" },
+    { to: "/admin/products", label: "Admin" },
   ];
 
   return (

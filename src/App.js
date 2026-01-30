@@ -17,6 +17,7 @@ import Categories from './pages/Categories';
 import Deals from './pages/Deals';
 import ProductDetail from './pages/ProductDetail';
 import Checkout from './pages/Checkout';
+import ProductManagement from './pages/Admin/ProductManagement';
 
 import { CartProvider } from './context/CartContext';
 
@@ -37,6 +38,7 @@ function App() {
               <Route path="/deals" element={<Deals />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="/admin/products" element={<ProductManagement />} />
             </Routes>
           </MainLayout>
         </Router>
