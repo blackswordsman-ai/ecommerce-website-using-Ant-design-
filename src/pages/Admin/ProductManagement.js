@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Space, Modal, Form, Input, InputNumber, Select, message, Card, Typography, Spin } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined, ReloadOutlined } from '@ant-design/icons';
+import { Table, Button, Space, Modal, Form, Input, InputNumber, Select, message, Card, Typography, Spin, Switch, Upload, Rate } from 'antd';
+import { EditOutlined, DeleteOutlined, PlusOutlined, ReloadOutlined, UploadOutlined } from '@ant-design/icons';
 import { productAPI } from '../../services/api';
 
 const { Title } = Typography;
@@ -12,6 +12,7 @@ const ProductManagement = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [form] = Form.useForm();
+  const [fileList, setFileList] = useState([]);
 
   // Fetch products on mount
   useEffect(() => {
@@ -33,17 +34,30 @@ const ProductManagement = () => {
 
   const showModal = (product = null) => {
     setEditingProduct(product);
-    if (product) {
-      form.setFieldsValue(product);
-    } else {
-      form.resetFields();
-    }
+    setFileList([]);
     setIsModalVisible(true);
+    
+    // Set form values
+    if (product) {
+        // Filter out "undefined" string if it exists in the product data
+        const cleanProduct = { ...product };
+        if (cleanProduct.image === 'undefined') cleanProduct.image = '';
+        
+        form.setFieldsValue({
+            ...cleanProduct,
+            isNew: cleanProduct.isNew,
+            inStock: cleanProduct.inStock,
+        });
+    } else {
+        form.resetFields();
+    }
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
     setEditingProduct(null);
+    setFileList([]);
+    form.resetFields();
   };
 
   const handleDelete = async (id) => {
@@ -60,66 +74,81 @@ const ProductManagement = () => {
     setLoading(true);
     try {
       if (editingProduct) {
+        // Handle Edit
         await productAPI.update(editingProduct.id, values);
         message.success('Product updated successfully');
       } else {
-        const productData = {
-          ...values,
-          id: String(Date.now()), // Proper unique ID for Redis
-          image: 'https://via.placeholder.com/150'
-        };
-        await productAPI.create(productData);
-        message.success('Product added successfully');
+        // Handle Create
+        const formData = new FormData();
+        
+        // Append all regular fields
+        Object.keys(values).forEach(key => {
+            if (values[key] !== undefined && values[key] !== null) {
+                formData.append(key, values[key]);
+            }
+        });
+
+        // Append Image if exists
+        if (fileList.length > 0) {
+            // Check if it's the raw File object (from beforeUpload) or AntD wrapper (from onChange)
+            const file = fileList[0].originFileObj || fileList[0];
+            formData.append('image', file);
+        }
+
+        await productAPI.create(formData);
+        message.success('Product created successfully');
       }
       setIsModalVisible(false);
+      form.resetFields(); // Reset form after success
       fetchProducts();
     } catch (error) {
+      console.error(error);
       message.error('Error saving product');
     } finally {
       setLoading(false);
     }
   };
 
+  const uploadProps = {
+    onRemove: (file) => {
+      setFileList([]);
+    },
+    beforeUpload: (file) => {
+      setFileList([file]); // Only keep the newest file
+      return false; // Prevent auto upload
+    },
+    fileList,
+  };
+
   const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      width: 120,
-      ellipsis: true,
+    { title: 'ID', dataIndex: 'id', key: 'id', width: 80 },
+    { 
+        title: 'Image', 
+        dataIndex: 'image', 
+        key: 'image',
+        render: (src) => <img src={src} alt="product" style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 4 }} />
     },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+    { title: 'Name', dataIndex: 'name', key: 'name' },
+    { title: 'Category', dataIndex: 'category', key: 'category' },
+    { 
+        title: 'Price', 
+        dataIndex: 'price', 
+        key: 'price',
+        render: (price) => `$${Number(price).toFixed(2)}`
     },
-    {
-      title: 'Category',
-      dataIndex: 'category',
-      key: 'category',
-    },
-    {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-      render: (price) => `$${price ? Number(price).toFixed(2) : '0.00'}`,
+    { 
+        title: 'Stock', 
+        dataIndex: 'inStock', 
+        key: 'inStock',
+        render: (inStock) => inStock ? <span style={{color: 'green'}}>In Stock</span> : <span style={{color: 'red'}}>Out</span>
     },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <Button 
-            type="primary" 
-            ghost 
-            icon={<EditOutlined />} 
-            onClick={() => showModal(record)}
-          />
-          <Button 
-            danger 
-            icon={<DeleteOutlined />} 
-            onClick={() => handleDelete(record.id)}
-          />
+          <Button type="primary" ghost icon={<EditOutlined />} onClick={() => showModal(record)} />
+          <Button danger icon={<DeleteOutlined />} onClick={() => handleDelete(record.id)} />
         </Space>
       ),
     },
@@ -131,34 +160,18 @@ const ProductManagement = () => {
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', alignItems: 'center' }}>
           <Title level={2}>Product Management</Title>
           <Space>
-            <Button 
-                icon={<ReloadOutlined />} 
-                onClick={fetchProducts}
-                disabled={loading}
-            >
-                Refresh
-            </Button>
-            <Button 
-                type="primary" 
-                icon={<PlusOutlined />} 
-                onClick={() => showModal()}
-            >
-                Add Product
-            </Button>
+            <Button icon={<ReloadOutlined />} onClick={fetchProducts} disabled={loading}>Refresh</Button>
+            <Button type="primary" icon={<PlusOutlined />} onClick={() => showModal()}>Add Product</Button>
           </Space>
         </div>
         
         {loading && !products.length ? (
             <div style={{ textAlign: 'center', padding: '50px' }}>
-                <Spin size="large" tip="Loading products from backend..." />
+                <Spin size="large" />
+                <div style={{ marginTop: 10 }}>Loading products...</div>
             </div>
         ) : (
-            <Table 
-                columns={columns} 
-                dataSource={products} 
-                rowKey="id"
-                pagination={{ pageSize: 10 }}
-            />
+            <Table columns={columns} dataSource={products} rowKey="id" />
         )}
 
         <Modal
@@ -166,51 +179,69 @@ const ProductManagement = () => {
           open={isModalVisible}
           onCancel={handleCancel}
           footer={null}
-          destroyOnClose
-          confirmLoading={loading}
+          width={800}
+          forceRender // Pre-render the form to avoid 'instance not connected' warning
         >
-          <Form
-            form={form}
-            layout="vertical"
-            onFinish={onFinish}
-            initialValues={{ category: 'Fruits' }}
-          >
-            <Form.Item
-              name="name"
-              label="Product Name"
-              rules={[{ required: true, message: 'Please input product name!' }]}
-            >
-              <Input />
+          <Form form={form} layout="vertical" onFinish={onFinish} initialValues={{ category: 'Fruits', inStock: true, isNew: false, rating: 5 }}>
+            <Space style={{ display: 'flex', marginBottom: 8 }} align="start">
+                 <Form.Item name="name" label="Product Name" rules={[{ required: true }]} style={{ width: '400px' }}>
+                    <Input />
+                 </Form.Item>
+                 <Form.Item name="category" label="Category" rules={[{ required: true }]} style={{ width: '200px' }}>
+                    <Select>
+                        <Option value="Fruits">Fruits</Option>
+                        <Option value="Vegetables">Vegetables</Option>
+                        <Option value="Dairy">Dairy</Option>
+                        <Option value="Meat">Meat</Option>
+                        <Option value="Bakery">Bakery</Option>
+                    </Select>
+                 </Form.Item>
+            </Space>
+
+            <Space style={{ display: 'flex', marginBottom: 8 }} align="start">
+                <Form.Item name="price" label="Price ($)" rules={[{ required: true }]}>
+                    <InputNumber min={0} step={0.01} style={{ width: 120 }} />
+                </Form.Item>
+                <Form.Item name="discountPrice" label="Discount Price ($)">
+                    <InputNumber min={0} step={0.01} style={{ width: 120 }} />
+                </Form.Item>
+                <Form.Item name="rating" label="Rating">
+                    <Rate allowHalf />
+                </Form.Item>
+            </Space>
+
+            <Form.Item name="description" label="Description">
+                <Input.TextArea rows={3} />
             </Form.Item>
 
-            <Form.Item
-              name="category"
-              label="Category"
-              rules={[{ required: true, message: 'Please select category!' }]}
-            >
-              <Select>
-                <Option value="Fruits">Fruits</Option>
-                <Option value="Vegetables">Vegetables</Option>
-                <Option value="Dairy">Dairy</Option>
-                <Option value="Meat">Meat</Option>
-                <Option value="Bakery">Bakery</Option>
-              </Select>
-            </Form.Item>
+            <Space style={{ display: 'flex', marginBottom: 8 }} align="start">
+                <Form.Item name="origin" label="Origin">
+                    <Input />
+                </Form.Item>
+                <Form.Item name="weight" label="Weight">
+                    <Input />
+                </Form.Item>
+                <Form.Item name="shelfLife" label="Shelf Life">
+                    <Input />
+                </Form.Item>
+            </Space>
+            
+            <Space size="large">
+                <Form.Item name="inStock" label="In Stock" valuePropName="checked">
+                    <Switch />
+                </Form.Item>
+                <Form.Item name="isNew" label="Mark as New" valuePropName="checked">
+                    <Switch />
+                </Form.Item>
+            </Space>
 
-            <Form.Item
-              name="price"
-              label="Price"
-              rules={[{ required: true, message: 'Please input price!' }]}
-            >
-              <InputNumber style={{ width: '100%' }} min={0} step={0.01} />
-            </Form.Item>
-
-            <Form.Item
-              name="description"
-              label="Description"
-            >
-              <Input.TextArea rows={4} />
-            </Form.Item>
+            {!editingProduct && (
+                 <Form.Item label="Product Image">
+                    <Upload {...uploadProps} listType="picture" maxCount={1}>
+                        <Button icon={<UploadOutlined />}>Select Image</Button>
+                    </Upload>
+                </Form.Item>
+            )}
 
             <Form.Item>
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
