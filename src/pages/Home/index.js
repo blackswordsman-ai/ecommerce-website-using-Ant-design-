@@ -1,9 +1,9 @@
-import Hero from "../../components/home/Hero";
-import RecentProducts from "../../components/home/RecentProducts";
-import Information from "../../components/home/Information";
+import Hero from "../../components/home/hero";
+import RecentProducts from "../../components/home/recentProducts";
+import Information from "../../components/home/information";
 import ProductCategories from "../../components/home/ProductCategories";
-import SaleProducts from "../../components/home/SaleProducts";
-import TopBrand from "../../components/home/TopBrand";
+import SaleProducts from "../../components/home/saleProducts";
+import TopBrand from "../../components/home/topBrand";
 import Newsletter from "../../components/home/Newsletter";
 
 function Home() {

@@ -2,47 +2,54 @@ import { useNavigate } from 'react-router-dom';
 import { Col, Row, Typography, Avatar } from 'antd';
 import './ProductCategories.css';
 
+import fruitsImg from '../../assets/images/cat-fruits.png';
+import vegImg from '../../assets/images/cat-veg.png';
+import bakeryImg from '../../assets/images/cat-bakery.png';
+import dairyImg from '../../assets/images/cat-dairy.png';
+import meatImg from '../../assets/images/cat-meat.png';
+import pantryImg from '../../assets/images/cat-pantry.png';
+
 const { Title, Text } = Typography;
 
 const productCategories = [
   {
     key: 1,
-    image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6bccb",
+    image: fruitsImg,
     title: "Fruits"
   },
   {
     key: 2,
-    image: "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc",
+    image: vegImg,
     title: "Vegetables"
   },
   {
     key: 3,
-    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff",
+    image: bakeryImg,
     title: "Bakery"
   },
   {
     key: 4,
-    image: "https://images.unsplash.com/photo-1506976781803-8cd62c7e65ee",
+    image: dairyImg,
     title: "Dairy & Eggs"
   },
   {
     key: 5,
-    image: "https://images.unsplash.com/photo-1485921325833-c519f76c4927",
+    image: meatImg,
     title: "Meat & Seafood"
   },
   {
     key: 6,
-    image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5",
+    image: pantryImg,
     title: "Pantry"
   },
   {
     key: 7,
-    image: "https://images.unsplash.com/photo-1600266175161-c6938e3d141c",
+    image: "https://images.unsplash.com/photo-1544666668-f9659f8c67c2?auto=format&fit=crop&q=80&w=300&h=300",
     title: "Beverages"
   },
   {
     key: 8,
-    image: "https://images.unsplash.com/photo-1566478431365-2e701e1b321a",
+    image: "https://images.unsplash.com/photo-1599490659223-e153c3d20542?auto=format&fit=crop&q=80&w=300&h=300",
     title: "Snacks"
   }
 ];

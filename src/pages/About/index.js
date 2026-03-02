@@ -1,4 +1,4 @@
-import { Row, Col, Card, Avatar, Typography, Divider, Image, Space } from 'antd';
+import { Row, Col, Card, Typography, Divider, Image, Space } from 'antd';
 import { 
   TeamOutlined, 
   TrophyOutlined, 
@@ -9,7 +9,6 @@ import {
 import './About.css';
 
 const { Title, Paragraph, Text } = Typography;
-const { Meta } = Card;
 
 function About() {
   const values = [
